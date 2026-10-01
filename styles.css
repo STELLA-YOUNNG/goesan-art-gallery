@@ -253,61 +253,31 @@ textarea{min-height:90px}
 .crop-wrap{display:none;margin-top:10px}
 #cropCanvas{max-width:100%;border:1px solid #cfd6cc;cursor:crosshair;touch-action:none;display:block;margin:auto}
 .range-row{display:grid;grid-template-columns:70px 1fr 55px;align-items:center;gap:8px;margin-top:8px}
-.notice{font-size:11px;color:#79847a;line-height:1.6}
+.notice{font-size:11px;color:#79847a;line-height:1.7;margin-top:6px}
 
+/* viewer nav */
+.viewer-nav{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:54px;border:0;border-radius:7px;background:rgba(30,54,46,.72);color:#fff;font-size:35px;line-height:1;display:flex;align-items:center;justify-content:center;z-index:4;box-shadow:0 3px 12px rgba(0,0,0,.18)}
+.viewer-prev{left:10px}.viewer-next{right:10px}
+.viewer-nav:disabled{opacity:.22;cursor:default}
+#prevWorkTextBtn:disabled,#nextWorkTextBtn:disabled{opacity:.35;cursor:default}
 
-.viewer-nav{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:42px;height:42px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.75);
-  background:rgba(37,70,59,.78);
-  color:#fff;
-  font-size:30px;
-  line-height:36px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:4;
-  box-shadow:0 5px 18px rgba(0,0,0,.16);
-}
-.viewer-nav:hover{background:rgba(37,70,59,.94)}
-.viewer-prev{left:12px}
-.viewer-next{right:12px}
-.viewer-nav:disabled,
-#prevWorkTextBtn:disabled,
-#nextWorkTextBtn:disabled{
-  opacity:.35;
-  cursor:not-allowed;
-}
-@media(max-width:640px){
-  .viewer-nav{width:36px;height:36px;font-size:26px}
-  .viewer-prev{left:7px}
-  .viewer-next{right:7px}
-}
-
+/* responsive */
 @media(max-width:900px){
-  .topbar-inner,.hero-inner,.wrap,.sample-notice,.footer{max-width:96%}
-  .topbar-inner{grid-template-columns:1fr auto}
-  .navlinks{display:none}
-  .hero-inner{grid-template-columns:1fr}
-  .hero-art{min-height:360px}
-  .filters-row{align-items:flex-start;flex-direction:column}
-  .story{padding-left:4%;padding-right:4%;grid-template-columns:1fr;gap:40px}
+  .topbar{height:auto;padding:15px 0}.topbar-inner{grid-template-columns:1fr auto}.navlinks{display:none}
+  .hero{padding:35px 0}.hero-inner{grid-template-columns:1fr;gap:30px}.hero-art{min-height:400px}
+  .main-frame{width:min(85vw,510px);height:350px;right:2vw}.small-frame{left:3vw}
+  .grid{grid-template-columns:1fr 1fr}.story{grid-template-columns:1fr;gap:35px;padding-left:25px;padding-right:25px}
+  .filters-row{align-items:flex-start;flex-direction:column}.toolbar{width:100%}.toolbar .wide{flex:1;width:auto}
 }
-@media(max-width:640px){
-  .topbar{height:76px}
-  .logo-text b{font-size:15px}
-  #adminBtn{padding:10px 12px;font-size:12px}
-  .hero{padding-top:42px}
-  .brand h1{font-size:31px}
-  .brand h1 .gallery-line{font-size:30px}
-  .hero-art{transform:scale(.86);transform-origin:top center;margin-bottom:-35px}
-  .intro-strip{align-items:flex-start;flex-direction:column;gap:10px}
-  .intro-strip p{align-self:flex-end}
-  .grid{grid-template-columns:1fr}
-  .toolbar .wide{width:min(76vw,310px)}
-  .form-grid{grid-template-columns:1fr}.form-grid .full{grid-column:auto}
+@media(max-width:560px){
+  .brand h1{font-size:34px}.brand h1 .gallery-line{font-size:32px}.hero-art{min-height:350px}
+  .main-frame{height:300px}.small-frame{width:155px;height:195px}.hero-small-img-wrap{height:132px}
+  .grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.story{margin-top:55px}.footer{flex-direction:column;gap:16px}
 }
+
+/* 대표 작품 인터랙션 및 고정 안내 문구 */
+.main-frame,.small-frame{transition:transform .28s ease,box-shadow .28s ease}
+.main-frame:hover{transform:rotate(1.5deg) translateY(-6px);box-shadow:0 18px 34px rgba(75,76,62,.18)}
+.small-frame:hover{transform:rotate(-12deg) translateY(-6px);box-shadow:0 16px 30px rgba(75,76,62,.20)}
+.hero-caption{font-size:0}
+.hero-caption::after{content:"명덕 어린이들의 그림으로 초대해요!";font-size:11px;color:#7a867d}
