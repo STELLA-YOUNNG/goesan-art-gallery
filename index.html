@@ -4,7 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>괴산명덕초등학교 온라인 전시관</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=13">
+<style>
+/* 대표 작품 영역 조정 */
+.main-frame,.small-frame{transition:transform .28s ease,box-shadow .28s ease}
+.main-frame:hover{transform:rotate(1.5deg) translateY(-6px);box-shadow:0 18px 34px rgba(75,76,62,.18)}
+.small-frame:hover{transform:rotate(-12deg) translateY(-6px);box-shadow:0 16px 30px rgba(75,76,62,.20)}
+.art-label{transform:rotate(4deg);transform-origin:right center;top:10px;right:24px}
+.hero-caption{bottom:-30px!important;right:118px!important;font-size:0!important;white-space:nowrap;z-index:6;pointer-events:none}
+.hero-caption::after{content:"명덕 어린이들의 그림으로 초대해요!";font-size:11px;color:#7a867d}
+.hero-art{margin-bottom:30px}
+@media(max-width:900px){.hero-caption{bottom:-24px!important;right:12vw!important}.hero-art{margin-bottom:24px}.art-label{right:4vw}}
+@media(max-width:560px){.hero-caption{bottom:-22px!important;right:8vw!important;font-size:0!important}.hero-caption::after{font-size:10px}}
+</style>
 </head>
 <body>
 <div class="topbar">
@@ -120,8 +132,14 @@
       <div class="full"><label>전시</label><select id="workExhibition"></select></div>
       <div class="full"><label>작품 설명 (선택)</label><textarea id="workDesc"></textarea></div>
       <div class="full">
-        <label>작품 사진 선택 · 자르기</label><input id="imageInput" type="file" accept="image/*">
+        <label>작품 사진 선택 · 자르기</label>
+        <input id="imageInput" type="file" accept="image/*" multiple>
         <div class="notice">사진을 선택하면 바로 아래에 자르기 화면이 나타납니다. 필요한 부분만 남긴 뒤 저장해 주세요. 저장 시 자동으로 용량도 줄어듭니다.</div>
+        <label class="notice" style="display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-weight:500">
+          <input id="continuousMode" type="checkbox" checked style="width:auto;margin-top:2px">
+          <span><strong>연속 등록 모드</strong> — 저장 후 학년·전시는 그대로 두고 바로 다음 작품을 입력합니다. 여러 장을 한 번에 선택하면 사진도 순서대로 넘어갑니다.</span>
+        </label>
+        <div id="batchProgress" class="notice" style="display:none;margin-top:8px;font-weight:700;color:#35584d"></div>
         <div class="crop-wrap" id="cropWrap">
           <div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0 7px"><strong style="font-size:13px;color:#35584d">✂ 사진 자르기</strong><button type="button" class="btn ghost" id="cropResetBtn" style="padding:7px 11px;font-size:11px">자르기 초기화</button></div>
           <div class="notice" style="margin-bottom:8px">사진 위에서 남기고 싶은 부분을 마우스(또는 손가락)로 대각선 드래그해 선택하세요.</div>
