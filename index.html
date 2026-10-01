@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>괴산명덕초등학교 온라인 전시관</title>
-<link rel="stylesheet" href="styles.css?v=13">
+<link rel="stylesheet" href="styles.css?v=14">
 <style>
 /* 대표 작품 영역 조정 */
 .main-frame,.small-frame{transition:transform .28s ease,box-shadow .28s ease}
@@ -16,6 +16,10 @@
 .hero-art{margin-bottom:30px}
 @media(max-width:900px){.hero-caption{bottom:-24px!important;right:12vw!important}.hero-art{margin-bottom:24px}.art-label{right:4vw}}
 @media(max-width:560px){.hero-caption{bottom:-22px!important;right:8vw!important;font-size:0!important}.hero-caption::after{font-size:10px}}
+/* 전시 제목은 한 줄로 표시 */
+#currentExTitle{white-space:nowrap;font-size:clamp(12px,2.1vw,25px)}
+.exhibition-card{width:max-content;max-width:100%}
+#overviewExTitle{white-space:nowrap;font-size:clamp(11px,1.45vw,15px)}
 </style>
 </head>
 <body>
@@ -37,7 +41,10 @@
   <div class="hero-inner">
     <div class="hero-copy brand">
       <div class="kicker-row">우리 학교, 우리 아이들의 빛나는 순간</div>
-      <h1><span class="school-line">괴산명덕초등학교</span><span class="gallery-line">온라인 전시관</span></h1>
+      <h1>
+        <span class="school-line">괴산명덕초등학교</span>
+        <span class="gallery-line">온라인 전시관</span>
+      </h1>
       <div class="desc">명덕 어린이들이 그림으로 전하는 이야기.<br>우리 학교의 다채로운 전시에 여러분을 초대합니다.</div>
       <div class="hero-actions">
         <a class="btn primary" href="#gallerySection">전시 둘러보기</a>
@@ -48,10 +55,17 @@
       </div>
       <div class="hero-note"><span class="spark">✳</span>괴산명덕초등학교 1~6학년이 함께 만드는 전시</div>
     </div>
+
     <div class="hero-art">
       <div class="art-label">MYEONGDEOK, OUR COLORS</div>
-      <div class="main-frame"><div class="tape"></div><div class="hero-img-wrap"><img id="heroMainImage" alt="최근 업로드 작품"></div></div>
-      <div class="small-frame"><div class="hero-small-img-wrap"><img id="heroSmallImage" alt="최근 업로드 작품"></div><div class="small-caption" id="heroSmallCaption">최근 작품</div></div>
+      <div class="main-frame">
+        <div class="tape"></div>
+        <div class="hero-img-wrap"><img id="heroMainImage" alt="최근 업로드 작품"></div>
+      </div>
+      <div class="small-frame">
+        <div class="hero-small-img-wrap"><img id="heroSmallImage" alt="최근 업로드 작품"></div>
+        <div class="small-caption" id="heroSmallCaption">최근 작품</div>
+      </div>
       <div class="burst"><span></span><i></i></div>
       <div class="hero-caption" id="heroMainCaption">명덕 어린이들의 그림으로 초대해요!</div>
     </div>
@@ -60,13 +74,22 @@
 
 <main class="wrap">
   <section class="intro-strip">
-    <div><div class="intro-kicker">LITTLE ARTISTS, BIG STORIES</div><h2>명덕 어린이들의 작품</h2></div>
+    <div>
+      <div class="intro-kicker">LITTLE ARTISTS, BIG STORIES</div>
+      <h2>명덕 어린이들의 작품</h2>
+    </div>
     <p>한 작품씩, 천천히 마음을 담아 감상해 주세요.</p>
   </section>
 
   <section class="exhibitions-box">
-    <div class="exhibitions-top"><h3>우리 학교 전시 모아보기</h3><button class="admin-only" id="manageExBtnTop">＋ 전시 추가·관리</button></div>
-    <div class="exhibition-card"><b id="overviewExTitle">우리고장 알리기 그림 그리기 대회</b><small id="overviewExCount">0점</small></div>
+    <div class="exhibitions-top">
+      <h3>우리 학교 전시 모아보기</h3>
+      <button class="admin-only" id="manageExBtnTop">＋ 전시 추가·관리</button>
+    </div>
+    <div class="exhibition-card">
+      <b id="overviewExTitle">우리고장 알리기 그림 그리기 대회</b>
+      <small id="overviewExCount">샘플 12점</small>
+    </div>
   </section>
 
   <section class="current-head">
@@ -86,10 +109,17 @@
     </div>
   </div>
   <div class="divider"></div>
-  <div class="gallery-toolbar" id="gallerySection"><div id="countInfo">전체 0점</div><div class="right"><span id="favCount">♡ 마음에 담은 작품 0</span><span>Ⅱ 크게 보기</span></div></div>
+
+  <div class="gallery-toolbar" id="gallerySection">
+    <div id="countInfo">전체 0점</div>
+    <div class="right"><span id="favCount">♡ 마음에 담은 작품 0</span><span>Ⅱ 크게 보기</span></div>
+  </div>
+
   <section id="gallery" class="grid"></section>
   <div id="emptyState" class="empty" style="display:none">등록된 작품이 없습니다.</div>
 </main>
+
+
 
 <section class="story" id="storySection">
   <div>
@@ -116,10 +146,16 @@
   <div class="modal" style="max-width:430px">
     <h3>관리자 로그인</h3>
     <p class="notice">Supabase 관리자 계정으로 로그인합니다. 로그인한 관리자만 작품과 전시를 등록·수정·삭제할 수 있습니다.</p>
-    <label>이메일</label><input id="loginEmail" type="email" placeholder="관리자 이메일">
-    <label style="margin-top:10px">비밀번호</label><input id="loginPassword" type="password" placeholder="비밀번호">
-    <div class="modal-actions"><button class="btn ghost" data-close="loginModal">취소</button><button class="btn primary" id="loginSubmit">로그인</button></div>
+    <label>이메일</label>
+    <input id="loginEmail" type="email" placeholder="관리자 이메일">
+    <label style="margin-top:10px">비밀번호</label>
+    <input id="loginPassword" type="password" placeholder="비밀번호">
+    <div class="modal-actions">
+      <button class="btn ghost" data-close="loginModal">취소</button>
+      <button class="btn primary" id="loginSubmit">로그인</button>
+    </div>
   </div>
+</div>
 </div>
 
 <div class="modal-backdrop" id="workModal">
@@ -127,22 +163,25 @@
     <h3 id="workModalTitle">작품 업로드</h3>
     <div class="form-grid">
       <div><label>학생 이름</label><input id="studentName" type="text"></div>
-      <div><label>학년</label><select id="gradeInput"><option value="1">1학년</option><option value="2">2학년</option><option value="3">3학년</option><option value="4">4학년</option><option value="5">5학년</option><option value="6">6학년</option></select></div>
+      <div><label>학년</label>
+        <select id="gradeInput">
+          <option value="1">1학년</option><option value="2">2학년</option><option value="3">3학년</option>
+          <option value="4">4학년</option><option value="5">5학년</option><option value="6">6학년</option>
+        </select>
+      </div>
       <div class="full"><label>작품 제목</label><input id="workTitle" type="text"></div>
       <div class="full"><label>전시</label><select id="workExhibition"></select></div>
       <div class="full"><label>작품 설명 (선택)</label><textarea id="workDesc"></textarea></div>
       <div class="full">
         <label>작품 사진 선택 · 자르기</label>
-        <input id="imageInput" type="file" accept="image/*" multiple>
+        <input id="imageInput" type="file" accept="image/*">
         <div class="notice">사진을 선택하면 바로 아래에 자르기 화면이 나타납니다. 필요한 부분만 남긴 뒤 저장해 주세요. 저장 시 자동으로 용량도 줄어듭니다.</div>
-        <label class="notice" style="display:flex;gap:8px;align-items:flex-start;margin-top:10px;font-weight:500">
-          <input id="continuousMode" type="checkbox" checked style="width:auto;margin-top:2px">
-          <span><strong>연속 등록 모드</strong> — 저장 후 학년·전시는 그대로 두고 바로 다음 작품을 입력합니다. 여러 장을 한 번에 선택하면 사진도 순서대로 넘어갑니다.</span>
-        </label>
-        <div id="batchProgress" class="notice" style="display:none;margin-top:8px;font-weight:700;color:#35584d"></div>
         <div class="crop-wrap" id="cropWrap">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0 7px"><strong style="font-size:13px;color:#35584d">✂ 사진 자르기</strong><button type="button" class="btn ghost" id="cropResetBtn" style="padding:7px 11px;font-size:11px">자르기 초기화</button></div>
-          <div class="notice" style="margin-bottom:8px">사진 위에서 남기고 싶은 부분을 마우스(또는 손가락)로 대각선 드래그해 선택하세요.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0 7px">
+            <strong style="font-size:13px;color:#35584d">✂ 사진 자르기</strong>
+            <button type="button" class="btn ghost" id="cropResetBtn" style="padding:7px 11px;font-size:11px">자르기 초기화</button>
+          </div>
+          <div class="notice" style="margin-bottom:8px">사진 위에서 남기고 싶은 부분을 마우스(또는 손가락)로 대각선 드래그해 선택하세요. 선택한 사각형만 저장됩니다. 아래 조절막대로 미세 조정도 할 수 있습니다.</div>
           <div class="preview-box"><canvas id="cropCanvas"></canvas></div>
           <div class="range-row"><span>좌우</span><input id="cropX" type="range" min="0" max="0" value="0"><span id="cropXVal">0</span></div>
           <div class="range-row"><span>상하</span><input id="cropY" type="range" min="0" max="0" value="0"><span id="cropYVal">0</span></div>
@@ -151,25 +190,51 @@
         </div>
       </div>
     </div>
-    <div class="modal-actions"><button class="btn ghost" data-close="workModal">취소</button><button class="btn primary" id="saveWorkBtn">저장</button></div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-close="workModal">취소</button>
+      <button class="btn primary" id="saveWorkBtn">저장</button>
+    </div>
   </div>
 </div>
 
 <div class="modal-backdrop" id="exModal">
   <div class="modal">
     <h3>전시 관리</h3>
-    <div class="form-grid"><div class="full"><label>새 전시 이름</label><input id="newExTitle" type="text" placeholder="예: 2026 괴산 우리고장 알리기 그림 그리기 대회"></div><div class="full"><label>설명</label><input id="newExDesc" type="text" placeholder="전시 설명"></div></div>
-    <div class="modal-actions" style="justify-content:flex-start"><button class="btn primary" id="addExBtn">전시 추가</button></div>
-    <hr style="border:none;border-top:1px solid var(--line);margin:18px 0"><div id="exList"></div>
-    <div class="modal-actions"><button class="btn ghost" id="changePwBtn" style="display:none">비밀번호 변경</button><button class="btn ghost" id="schoolPhotoBtn">학교사진 설정</button><input id="schoolPhotoInput" type="file" accept="image/*" hidden><button class="btn ghost" data-close="exModal">닫기</button></div>
+    <div class="form-grid">
+      <div class="full"><label>새 전시 이름</label><input id="newExTitle" type="text" placeholder="예: 2026 괴산 우리고장 알리기 그림 그리기 대회"></div>
+      <div class="full"><label>설명</label><input id="newExDesc" type="text" placeholder="전시 설명"></div>
+    </div>
+    <div class="modal-actions" style="justify-content:flex-start">
+      <button class="btn primary" id="addExBtn">전시 추가</button>
+    </div>
+    <hr style="border:none;border-top:1px solid var(--line);margin:18px 0">
+    <div id="exList"></div>
+    <div class="modal-actions">
+      <button class="btn ghost" id="changePwBtn" style="display:none">비밀번호 변경</button>
+      <button class="btn ghost" id="schoolPhotoBtn">학교사진 설정</button>
+      <input id="schoolPhotoInput" type="file" accept="image/*" hidden>
+      <button class="btn ghost" data-close="exModal">닫기</button>
+    </div>
   </div>
 </div>
 
 <div class="modal-backdrop" id="viewModal">
   <div class="modal">
-    <div style="position:relative"><img id="viewImage" style="width:100%;max-height:65vh;object-fit:contain;border-radius:14px;background:#f8fafc"><button id="prevWorkBtn" class="viewer-nav viewer-prev" aria-label="이전 작품">‹</button><button id="nextWorkBtn" class="viewer-nav viewer-next" aria-label="다음 작품">›</button></div>
-    <h3 id="viewTitle" style="margin-bottom:4px"></h3><div id="viewMeta" class="meta"></div><p id="viewDesc"></p>
-    <div class="modal-actions" style="justify-content:space-between"><div style="display:flex;gap:8px"><button class="btn ghost" id="prevWorkTextBtn">← 이전 작품</button><button class="btn ghost" id="nextWorkTextBtn">다음 작품 →</button></div><button class="btn ghost" data-close="viewModal">닫기</button></div>
+    <div style="position:relative">
+      <img id="viewImage" style="width:100%;max-height:65vh;object-fit:contain;border-radius:14px;background:#f8fafc">
+      <button id="prevWorkBtn" class="viewer-nav viewer-prev" aria-label="이전 작품">‹</button>
+      <button id="nextWorkBtn" class="viewer-nav viewer-next" aria-label="다음 작품">›</button>
+    </div>
+    <h3 id="viewTitle" style="margin-bottom:4px"></h3>
+    <div id="viewMeta" class="meta"></div>
+    <p id="viewDesc"></p>
+    <div class="modal-actions" style="justify-content:space-between">
+      <div style="display:flex;gap:8px">
+        <button class="btn ghost" id="prevWorkTextBtn">← 이전 작품</button>
+        <button class="btn ghost" id="nextWorkTextBtn">다음 작품 →</button>
+      </div>
+      <button class="btn ghost" data-close="viewModal">닫기</button>
+    </div>
   </div>
 </div>
 
