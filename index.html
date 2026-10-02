@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>괴산명덕초등학교 온라인 전시관</title>
-<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="styles.css?v=15">
 <style>
 /* 대표 작품 영역 조정 */
 .main-frame,.small-frame{transition:transform .28s ease,box-shadow .28s ease}
@@ -238,8 +238,44 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="app-core.js"></script>
-<script src="app-ui.js"></script>
+<script>
+(function(){
+  function loadScript(src){
+    return new Promise(function(resolve,reject){
+      var el=document.createElement('script');
+      el.src=src;
+      el.async=false;
+      el.onload=resolve;
+      el.onerror=function(){reject(new Error('스크립트 로드 실패: '+src));};
+      document.head.appendChild(el);
+    });
+  }
+  function showStartupError(err){
+    console.error(err);
+    var box=document.createElement('div');
+    box.id='startupError';
+    box.style.cssText='position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;padding:13px 15px;border-radius:8px;background:#fff4ef;color:#7b3d31;border:1px solid #e7c5ba;font:13px/1.5 sans-serif;box-shadow:0 8px 24px rgba(0,0,0,.12)';
+    box.textContent='전시관 연결 중 문제가 발생했습니다. 페이지를 새로고침해 주세요. 계속 보이면 이 문구가 보이는 화면을 캡처해 주세요.';
+    document.body.appendChild(box);
+  }
+  async function boot(){
+    try{
+      if(!window.supabase){
+        try{
+          await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
+        }catch(e){
+          await loadScript('https://unpkg.com/@supabase/supabase-js@2');
+        }
+      }
+      if(!window.supabase) throw new Error('Supabase 라이브러리를 불러오지 못했습니다.');
+      await loadScript('app-core.js?v=15');
+      await loadScript('app-ui.js?v=15');
+    }catch(e){
+      showStartupError(e);
+    }
+  }
+  boot();
+})();
+</script>
 </body>
 </html>
